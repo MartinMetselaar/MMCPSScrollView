@@ -14,7 +14,7 @@
     
     MMCPSScrollView* _scrollView;
     
-    NSInteger customPageHeight;
+    NSInteger customSegmentSize;
     MMCPSScrollType scrollType;
 }
 

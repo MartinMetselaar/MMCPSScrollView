@@ -28,7 +28,7 @@ typedef enum {
     CGRect _bottomComponent;
 }
 
-@property (nonatomic) NSInteger pageHeight;
+@property (nonatomic) NSInteger segmentSize;
 @property (nonatomic) NSInteger pageSize;
 @property (nonatomic) MMCPSScrollType type;
 

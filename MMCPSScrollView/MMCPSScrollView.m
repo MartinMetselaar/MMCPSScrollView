@@ -6,11 +6,13 @@
 //  Copyright (c) 2013 Martin Metselaar. All rights reserved.
 //
 
+// TODO: Pageheight and Pagewidth
+
 #import "MMCPSScrollView.h"
 
 @implementation MMCPSScrollView
 
-@synthesize pageHeight = _pageHeight;
+@synthesize segmentSize = _pageHeight;
 @synthesize pageSize = _pageSize;
 @synthesize type = _type;
 

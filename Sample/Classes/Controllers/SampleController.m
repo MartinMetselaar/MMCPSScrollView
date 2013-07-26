@@ -30,11 +30,11 @@
     
     [self calculateCustomPageHeight];
     
-    scrollType = MMCPSScrollVertical;
+    scrollType = MMCPSScrollHorizontal;
     
     _scrollView = [[MMCPSScrollView alloc] initWithFrame:self.view.bounds];
     [_scrollView setType:scrollType];
-    [_scrollView setPageHeight:customPageHeight];
+    [_scrollView setSegmentSize:customSegmentSize];
     [_scrollView setPageSize:2];
     [_scrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [self.view addSubview:_scrollView];
@@ -49,12 +49,11 @@
 
 - (void) calculateCustomPageHeight {
     if (scrollType == MMCPSScrollVertical)
-        customPageHeight = self.view.bounds.size.height / 2;
+        customSegmentSize = self.view.bounds.size.height / 2;
     else if (scrollType == MMCPSScrollHorizontal)
-        customPageHeight = self.view.bounds.size.width / 2;
+        customSegmentSize = self.view.bounds.size.width / 2;
     
-    
-    customPageHeight = 310;
+    customSegmentSize = 310;
 }
 
 - (void) fillScrollViewVertical {
@@ -62,10 +61,10 @@
     
     RandomColorView* view = nil;
     CGRect frame = self.view.bounds;
-    frame.size.height = customPageHeight;
+    frame.size.height = customSegmentSize;
     for (int i = 0; i < numberOfComponents; i++) {
         view = [[RandomColorView alloc] init];
-        frame.origin.y = i * customPageHeight;
+        frame.origin.y = i * customSegmentSize;
         [view setFrame:frame];
         [_scrollView addSubview:view];
     }
@@ -76,10 +75,10 @@
     
     RandomColorView* view = nil;
     CGRect frame = self.view.bounds;
-    frame.size.width = customPageHeight;
+    frame.size.width = customSegmentSize;
     for (int i = 0; i < numberOfComponents; i++) {
         view = [[RandomColorView alloc] init];
-        frame.origin.x = i * customPageHeight;
+        frame.origin.x = i * customSegmentSize;
         [view setFrame:frame];
         [_scrollView addSubview:view];
     }
@@ -107,13 +106,23 @@
         v = nil;
     }
     
-    [_scrollView setPageHeight:customPageHeight];
+    [_scrollView setSegmentSize:customSegmentSize];
     
     if (_scrollView.type == MMCPSScrollHorizontal) {
         [self fillScrollViewHorizontal];
     } else {
         [self fillScrollViewVertical];
     }
+}
+
+// alternative for shouldAutorotateToInterfaceOrientation
+- (NSUInteger)supportedInterfaceOrientations {
+    return [super supportedInterfaceOrientations];
+}
+
+// Deprecated since iOS6
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return YES;
 }
 
 - (void)dealloc {
