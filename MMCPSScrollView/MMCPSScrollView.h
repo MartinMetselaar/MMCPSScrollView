@@ -13,6 +13,15 @@ typedef enum {
     MMCPSScrollVertical
 } MMCPSScrollType;
 
+@class MMCPSScrollView;
+
+@protocol MMCPSScrollViewDelegate <NSObject>
+
+- (void) scrollView:(MMCPSScrollView *) scrollView willScrollToPage:(NSUInteger) pageIndex;
+- (void) scrollView:(MMCPSScrollView *) scrollView didScrollToPage:(NSUInteger) pageIndex;
+
+@end
+
 @interface MMCPSScrollView : UIScrollView <UIScrollViewDelegate> {
     MMCPSScrollType _type;
     
@@ -28,6 +37,13 @@ typedef enum {
 // The number of segments that represent one page
 @property (nonatomic) NSInteger pageSize;
 @property (nonatomic) MMCPSScrollType type;
+
+// Time it takes to scroll to next page
+@property (nonatomic) CGFloat scrollingTime;
+
+@property (nonatomic) NSUInteger currentPage;
+
+@property (nonatomic, retain) id<MMCPSScrollViewDelegate> MMCPSDelegate;
 
 - (id)initWithFrame:(CGRect)frame andType:(MMCPSScrollType) type;
 

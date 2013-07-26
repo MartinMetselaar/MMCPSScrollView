@@ -37,6 +37,7 @@
     [_scrollView setSegmentSize:customSegmentSize];
     [_scrollView setPageSize:2];
     [_scrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [_scrollView setMMCPSDelegate:self];
     [self.view addSubview:_scrollView];
     
     if (scrollType == MMCPSScrollVertical)
@@ -83,6 +84,18 @@
         [_scrollView addSubview:view];
     }
 }
+
+#pragma mark - MMCPSScrollViewDelegate 
+
+- (void)scrollView:(MMCPSScrollView *)scrollView didScrollToPage:(NSUInteger)pageIndex {
+    NSLog(@"The MMCPSScrollView is now on page %i.", pageIndex);
+}
+
+- (void)scrollView:(MMCPSScrollView *)scrollView willScrollToPage:(NSUInteger)pageIndex {
+    NSLog(@"The MMCPSScrollView is now going to page %i.", pageIndex);
+}
+
+#pragma mark - UIViewController
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

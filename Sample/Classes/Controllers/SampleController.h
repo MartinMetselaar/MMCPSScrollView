@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MMCPSScrollView.h"
 
-@interface SampleController : UIViewController {
+@interface SampleController : UIViewController <MMCPSScrollViewDelegate> {
 	BOOL _initialized;
     
     MMCPSScrollView* _scrollView;

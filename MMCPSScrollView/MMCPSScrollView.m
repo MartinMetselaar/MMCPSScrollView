@@ -31,6 +31,7 @@
         _segmentSize = [self CGRectSize:frame];
         _pageSize = 1;
         _type = type;
+        _scrollingTime = 0.35f;
         
         _bottomComponent = CGRectZero;
         _endScrollingPoint = CGPointZero;
@@ -142,7 +143,7 @@
 }
 
 - (void) scrollToPage:(NSInteger) index withHeight:(NSInteger) height andSize:(NSInteger) size {
-
+    _currentPage = index + 1;
     // height is the height/width for one segment
     // index is the index of the page
     // size is the number of segments that present one page
@@ -155,13 +156,28 @@
     
     [self setContentScrollOffset:value];
 
+    if ([_MMCPSDelegate respondsToSelector:@selector(scrollView:willScrollToPage:)])
+        [_MMCPSDelegate scrollView:self willScrollToPage:_currentPage];
+    
 }
 
 - (void)setContentScrollOffset:(CGFloat) value {
+    
+    CGPoint contentOffset = CGPointZero;
     if (_type == MMCPSScrollVertical)
-        [self setContentOffset:CGPointMake(0, value) animated:YES];
+        contentOffset = CGPointMake(0, value);
     else
-        [self setContentOffset:CGPointMake(value, 0) animated:YES];
+        contentOffset = CGPointMake(value, 0);
+    
+    [UIView animateWithDuration:_scrollingTime delay:0.0f options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{ [self setContentOffset:contentOffset animated:NO]; }
+                     completion:^(BOOL finished){
+                         if (finished) {
+                             if ([_MMCPSDelegate respondsToSelector:@selector(scrollView:didScrollToPage:)])
+                                 [_MMCPSDelegate scrollView:self didScrollToPage:_currentPage];
+                         }
+                     }];
+
 }
 
 // Scroll forward multiple pages
