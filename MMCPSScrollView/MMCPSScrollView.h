@@ -19,16 +19,13 @@ typedef enum {
     CGPoint _endScrollingPoint;
     CGPoint _startDraggingPoint;
     NSInteger _pageToScrollToo;
-
-    // The height of one segment
-    NSInteger _pageHeight;
-    // The number of segments that represent one page
-    NSInteger _pageSize;
     
     CGRect _bottomComponent;
 }
 
+// The height of one segment
 @property (nonatomic) NSInteger segmentSize;
+// The number of segments that represent one page
 @property (nonatomic) NSInteger pageSize;
 @property (nonatomic) MMCPSScrollType type;
 

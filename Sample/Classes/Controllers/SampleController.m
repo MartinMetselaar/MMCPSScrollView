@@ -28,7 +28,7 @@
 
 - (void) buildView {
     
-    [self calculateCustomPageHeight];
+    [self calculateCustomSegmentSize];
     
     scrollType = MMCPSScrollHorizontal;
     
@@ -47,7 +47,7 @@
     _initialized = YES;
 }
 
-- (void) calculateCustomPageHeight {
+- (void) calculateCustomSegmentSize {
     if (scrollType == MMCPSScrollVertical)
         customSegmentSize = self.view.bounds.size.height / 2;
     else if (scrollType == MMCPSScrollHorizontal)

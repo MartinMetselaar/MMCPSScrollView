@@ -6,14 +6,10 @@
 //  Copyright (c) 2013 Martin Metselaar. All rights reserved.
 //
 
-// TODO: Pageheight and Pagewidth
-
 #import "MMCPSScrollView.h"
 
 @implementation MMCPSScrollView
 
-@synthesize segmentSize = _pageHeight;
-@synthesize pageSize = _pageSize;
 @synthesize type = _type;
 
 - (id)initWithFrame:(CGRect)frame
@@ -32,7 +28,7 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        _pageHeight = [self CGRectSize:frame];
+        _segmentSize = [self CGRectSize:frame];
         _pageSize = 1;
         _type = type;
         
@@ -138,11 +134,11 @@
 #pragma mark - Scroll to pages
 
 - (void) scrollToPage:(NSInteger) index {
-    [self scrollToPage:index withHeight:_pageHeight];
+    [self scrollToPage:index withHeight:_segmentSize];
 }
 
 - (void) scrollToPage:(NSInteger) index withHeight:(NSInteger) height {
-    [self scrollToPage:index withHeight:_pageHeight andSize:_pageSize];
+    [self scrollToPage:index withHeight:_segmentSize andSize:_pageSize];
 }
 
 - (void) scrollToPage:(NSInteger) index withHeight:(NSInteger) height andSize:(NSInteger) size {
@@ -216,7 +212,7 @@
         return;
     
     // Check is any scrolling is needed.
-    if ((int) [self contentScrollOffset:scrollView] % (_pageHeight * _pageSize ) != 0) {
+    if ((int) [self contentScrollOffset:scrollView] % (_segmentSize * _pageSize ) != 0) {
         // If the user is not dragging the ScrollView anymore.
         if (!scrollView.isDragging) {
             
@@ -225,9 +221,9 @@
             
             float numberOfSegments;
             if (lengthScrolled < 0.0f)
-                numberOfSegments = floor(lengthScrolled / _pageHeight);
+                numberOfSegments = floor(lengthScrolled / _segmentSize);
             else
-                numberOfSegments = ceil(lengthScrolled / _pageHeight);
+                numberOfSegments = ceil(lengthScrolled / _segmentSize);
             
             int pagesToScroll;
             if (numberOfSegments < 0.0f)
@@ -291,12 +287,12 @@
                                           and:[self frameOrigin:view] + [self frameSize:view]];
         
         // Check if the contentSize does not corresponds with the pages
-        if (!((int)contentSize.height % (_pageSize * _pageHeight) == 0)) {
+        if (!((int)contentSize.height % (_pageSize * _segmentSize) == 0)) {
 
             // Calculate how much 'white space' is needed.
             int currentContentSize = [self contentSize:contentSize];
-            int sizeOnePage = (_pageSize * _pageHeight);
-            int canSomebodyPleaseRenameThisValueIfHeOrSheFindsOutHowToCallIt = ((int)[self contentSize:contentSize] % (_pageSize * _pageHeight));
+            int sizeOnePage = (_pageSize * _segmentSize);
+            int canSomebodyPleaseRenameThisValueIfHeOrSheFindsOutHowToCallIt = ((int)[self contentSize:contentSize] % (_pageSize * _segmentSize));
             
             CGFloat value = sizeOnePage - canSomebodyPleaseRenameThisValueIfHeOrSheFindsOutHowToCallIt + currentContentSize;
             contentSize = [self setCGSize:contentSize withValue:value];
