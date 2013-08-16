@@ -30,7 +30,7 @@
     
     [self calculateCustomSegmentSize];
     
-    scrollType = MMCPSScrollHorizontal;
+    scrollType = MMCPSScrollVertical;
     
     _scrollView = [[MMCPSScrollView alloc] initWithFrame:self.view.bounds];
     [_scrollView setType:scrollType];

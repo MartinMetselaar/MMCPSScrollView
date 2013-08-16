@@ -38,6 +38,10 @@ typedef enum {
 @property (nonatomic) NSInteger pageSize;
 @property (nonatomic) MMCPSScrollType type;
 
+// Set to true if you want it to fit the screen.
+// Set to false if you want to have white space.
+@property (nonatomic, assign) BOOL enableFitScreen;
+
 // Time it takes to scroll to next page
 @property (nonatomic) CGFloat scrollingTime;
 

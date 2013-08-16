@@ -303,7 +303,7 @@
                                           and:[self frameOrigin:view] + [self frameSize:view]];
         
         // Check if the contentSize does not corresponds with the pages
-        if (!((int)contentSize.height % (_pageSize * _segmentSize) == 0)) {
+        if (!_enableFitScreen && !((int)contentSize.height % (_pageSize * _segmentSize) == 0)) {
 
             // Calculate how much 'white space' is needed.
             int currentContentSize = [self contentSize:contentSize];
