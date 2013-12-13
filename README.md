@@ -1,3 +1,9 @@
+Outdated
+===============
+
+This project will no longer be updated on GitHub. It is still usable, but if you want the latest version you have to get it over at https://bitbucket.org/MartinMetselaar/mmcpsscrollview
+
+
 MMCPSScrollView
 ===============
 
